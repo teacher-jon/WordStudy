@@ -21,23 +21,14 @@
             padding: 20px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
+        header { text-align: center; margin-bottom: 40px; }
         h1 { margin-bottom: 5px; }
         p { color: #666; }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .category-section {
-            margin-bottom: 50px;
-        }
-
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .category-section { margin-bottom: 50px; }
+        
         .category-title {
             border-bottom: 2px solid var(--accent);
             padding-bottom: 10px;
@@ -64,13 +55,21 @@
             align-items: center;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
+        .card:hover { transform: translateY(-5px); }
+
+        /* Thumbnail Image Styling */
+        .game-thumb {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
         }
 
         .qr-placeholder {
             margin: 15px auto;
-            border: 10px solid #fff; /* White border for scanning contrast */
+            border: 5px solid #fff; 
         }
 
         .btn {
@@ -85,7 +84,6 @@
         }
 
         .btn:hover { background-color: #2980b9; }
-
         .desc { font-size: 0.9em; color: #555; margin-bottom: 15px; }
 
     </style>
@@ -104,21 +102,22 @@
     </div>
 
     <script>
-        // 1. Fetch the data
         fetch('games.json')
             .then(response => response.json())
             .then(data => renderSite(data))
             .catch(error => {
-                console.error('Error loading games.json:', error);
+                console.error('Error:', error);
                 document.getElementById('app').innerHTML = '<p>Error loading game data.</p>';
             });
 
         function renderSite(categories) {
             const app = document.getElementById('app');
-            app.innerHTML = ''; // Clear loading text
+            app.innerHTML = ''; 
 
             categories.forEach(cat => {
-                // Create Category Section
+                // LOGIC: If active is explicitly false, skip this category
+                if (cat.active === false) return;
+
                 const section = document.createElement('section');
                 section.className = 'category-section';
 
@@ -127,7 +126,6 @@
                 title.textContent = cat.category;
                 section.appendChild(title);
 
-                // Create Grid
                 const grid = document.createElement('div');
                 grid.className = 'grid';
 
@@ -135,33 +133,41 @@
                     const card = document.createElement('div');
                     card.className = 'card';
 
-                    // Title
+                    // 1. Image Thumbnail (Only if image is provided in JSON)
+                    if (game.image) {
+                        const img = document.createElement('img');
+                        img.src = game.image;
+                        img.className = 'game-thumb';
+                        img.alt = game.title + ' screenshot';
+                        card.appendChild(img);
+                    }
+
+                    // 2. Title
                     const h3 = document.createElement('h3');
                     h3.textContent = game.title;
                     card.appendChild(h3);
 
-                    // Description
+                    // 3. Description
                     const p = document.createElement('p');
                     p.className = 'desc';
                     p.textContent = game.description;
                     card.appendChild(p);
 
-                    // QR Container
+                    // 4. QR Code
                     const qrDiv = document.createElement('div');
                     qrDiv.className = 'qr-placeholder';
                     card.appendChild(qrDiv);
 
-                    // Generate QR
                     new QRCode(qrDiv, {
                         text: game.url,
-                        width: 128,
-                        height: 128,
+                        width: 100,  // Slightly smaller to fit with image
+                        height: 100,
                         colorDark : "#000000",
                         colorLight : "#ffffff",
                         correctLevel : QRCode.CorrectLevel.H
                     });
 
-                    // Link Button
+                    // 5. Button
                     const link = document.createElement('a');
                     link.href = game.url;
                     link.className = 'btn';
