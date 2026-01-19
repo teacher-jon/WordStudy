@@ -1,21 +1,25 @@
 [
   {
     "category": "Space Games",
+    "active": true,
     "items": [
       {
         "title": "Space-ish",
         "url": "https://teacher-jon.github.io/Space-ish/",
-        "description": "A space adventure game."
+        "description": "A space adventure game.",
+        "image": "images/space-ish.png"
       }
     ]
   },
   {
     "category": "Language & Vocabulary",
+    "active": false,
     "items": [
       {
-        "title": "Example Word Game",
+        "title": "Word Builder",
         "url": "https://google.com",
-        "description": "Practice your vocabulary skills."
+        "description": "A placeholder for future games.",
+        "image": ""
       }
     ]
   }
