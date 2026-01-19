@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Jon's Games</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --bg: #f4f6f7;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 { margin-bottom: 5px; }
+        p { color: #666; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .category-section {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .qr-placeholder {
+            margin: 15px auto;
+            border: 10px solid #fff; /* White border for scanning contrast */
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: auto;
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .btn:hover { background-color: #2980b9; }
+
+        .desc { font-size: 0.9em; color: #555; margin-bottom: 15px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Game Arcade</h1>
+            <p>Scan a QR code or click a link to play!</p>
+        </header>
+
+        <div id="app">
+            <p style="text-align:center">Loading games...</p>
+        </div>
+    </div>
+
+    <script>
+        // 1. Fetch the data
+        fetch('games.json')
+            .then(response => response.json())
+            .then(data => renderSite(data))
+            .catch(error => {
+                console.error('Error loading games.json:', error);
+                document.getElementById('app').innerHTML = '<p>Error loading game data.</p>';
+            });
+
+        function renderSite(categories) {
+            const app = document.getElementById('app');
+            app.innerHTML = ''; // Clear loading text
+
+            categories.forEach(cat => {
+                // Create Category Section
+                const section = document.createElement('section');
+                section.className = 'category-section';
+
+                const title = document.createElement('h2');
+                title.className = 'category-title';
+                title.textContent = cat.category;
+                section.appendChild(title);
+
+                // Create Grid
+                const grid = document.createElement('div');
+                grid.className = 'grid';
+
+                cat.items.forEach(game => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    // Title
+                    const h3 = document.createElement('h3');
+                    h3.textContent = game.title;
+                    card.appendChild(h3);
+
+                    // Description
+                    const p = document.createElement('p');
+                    p.className = 'desc';
+                    p.textContent = game.description;
+                    card.appendChild(p);
+
+                    // QR Container
+                    const qrDiv = document.createElement('div');
+                    qrDiv.className = 'qr-placeholder';
+                    card.appendChild(qrDiv);
+
+                    // Generate QR
+                    new QRCode(qrDiv, {
+                        text: game.url,
+                        width: 128,
+                        height: 128,
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+
+                    // Link Button
+                    const link = document.createElement('a');
+                    link.href = game.url;
+                    link.className = 'btn';
+                    link.textContent = 'Play Game';
+                    link.target = '_blank';
+                    card.appendChild(link);
+
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(grid);
+                app.appendChild(section);
+            });
+        }
+    </script>
+</body>
+</html>
