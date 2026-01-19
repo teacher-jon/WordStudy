@@ -1,13 +1,19 @@
 [
   {
-    "category": "Suffixes",
+    "category": "Space Games",
     "active": true,
     "items": [
       {
         "title": "Space-ish",
         "url": "https://teacher-jon.github.io/Space-ish/",
-        "description": "A space adventure game-- Suffix ish.",
+        "description": "A space adventure game.",
         "image": "images/space-ish.png"
+      },
+      {
+        "title": "ish-quest",
+        "url": "https://teacher-jon.github.io/ish-quest/",
+        "description": "A new adventure.",
+        "image": "ish-quest.png"
       }
     ]
   },
