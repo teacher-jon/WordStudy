@@ -1,0 +1,22 @@
+[
+  {
+    "category": "Space Games",
+    "items": [
+      {
+        "title": "Space-ish",
+        "url": "https://teacher-jon.github.io/Space-ish/",
+        "description": "A space adventure game."
+      }
+    ]
+  },
+  {
+    "category": "Language & Vocabulary",
+    "items": [
+      {
+        "title": "Example Word Game",
+        "url": "https://google.com",
+        "description": "Practice your vocabulary skills."
+      }
+    ]
+  }
+]
