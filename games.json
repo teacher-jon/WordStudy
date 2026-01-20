@@ -23,7 +23,7 @@
     "items": [
       {
         "title": "Leo's Garden",
-        "url": "leo-s-garden.vercel.app",
+        "url": "https://leo-s-garden.vercel.app",
         "description": "Practice writing with Leo.",
         "image": "images/leos-garden.png"
       }
