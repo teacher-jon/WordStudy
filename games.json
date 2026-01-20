@@ -1,6 +1,6 @@
 [
   {
-    "category": "Space Games",
+    "category": "Morphology Games",
     "active": true,
     "items": [
       {
@@ -18,6 +18,18 @@
     ]
   },
   {
+    "category": "WIDA Writing",
+    "active": true,
+    "items": [
+      {
+        "title": "Leo's Garden",
+        "url": "https://teacher-jon.github.io/Leo-s-Garden/",
+        "description": "Practice writing with Leo.",
+        "image": "images/leos-garden.png"
+      }
+    ]
+  },
+  {
     "category": "Language & Vocabulary",
     "active": false,
     "items": [
@@ -25,7 +37,7 @@
         "title": "Word Builder",
         "url": "https://google.com",
         "description": "A placeholder for future games.",
-        "image": "lg.png"
+        "image": ""
       }
     ]
   }
