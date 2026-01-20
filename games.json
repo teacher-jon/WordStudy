@@ -1,5 +1,17 @@
 [
   {
+    "category": "UFLI Games",
+    "active": true,
+    "items": [
+      {
+        "title": "Lessons 69-76",
+        "url": "https://teacher-jon.github.io/GalaxyUfli69/",
+        "description": "Practice reading with galaxy missions.",
+        "image": "images/galaxy-ufli.png"
+      }
+    ]
+  },
+  {
     "category": "Morphology Games",
     "active": true,
     "items": [
