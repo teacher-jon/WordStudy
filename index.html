@@ -3,88 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Jon's Games</title>
+    <title>Teacher Jon's Arcade</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --primary: #2c3e50;
-            --accent: #3498db;
-            --bg: #f4f6f7;
-            --card-bg: #ffffff;
+            --bg-dark: #0f0c29;
+            --bg-gradient: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            --card-glass: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --accent: #00d2ff; /* Cyan glow */
+            --accent-hover: #3a7bd5;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
             margin: 0;
             padding: 20px;
+            min-height: 100vh;
         }
 
-        header { text-align: center; margin-bottom: 40px; }
-        h1 { margin-bottom: 5px; }
-        p { color: #666; }
+        /* Animated Background Stars */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.2;
+            z-index: -1;
+        }
 
-        .container { max-width: 1000px; margin: 0 auto; }
-        
-        .category-section { margin-bottom: 50px; }
-        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin: 60px 0;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.7);
+            font-size: 2rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
         .category-title {
             border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: var(--primary);
+            display: inline-block;
+            padding-right: 20px;
+            margin-bottom: 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: #fff;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
+        /* Glassmorphism Card Style */
         .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: var(--card-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 25px;
             text-align: center;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .card:hover { transform: translateY(-5px); }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            border-color: var(--accent);
+        }
 
-        /* Thumbnail Image Styling */
         .game-thumb {
             width: 100%;
-            height: 150px;
+            height: 160px;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 15px;
-            border: 1px solid #eee;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+
+        .desc {
+            font-size: 0.95rem;
+            color: #ccc;
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
 
         .qr-placeholder {
-            margin: 15px auto;
-            border: 5px solid #fff; 
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 0 auto 20px auto;
         }
 
         .btn {
-            display: inline-block;
             margin-top: auto;
-            padding: 10px 20px;
-            background-color: var(--accent);
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--accent), var(--accent-hover));
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 50px;
             font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: filter 0.2s;
         }
 
-        .btn:hover { background-color: #2980b9; }
-        .desc { font-size: 0.9em; color: #555; margin-bottom: 15px; }
+        .btn:hover {
+            filter: brightness(1.2);
+        }
 
     </style>
 </head>
@@ -92,16 +160,17 @@
 
     <div class="container">
         <header>
-            <h1>Game Arcade</h1>
-            <p>Scan a QR code or click a link to play!</p>
+            <h1>Teacher Jon's<br>Arcade</h1>
+            <p>Ready Player One?</p>
         </header>
 
         <div id="app">
-            <p style="text-align:center">Loading games...</p>
+            <p style="text-align:center; font-size: 1.2rem;">Loading games...</p>
         </div>
     </div>
 
     <script>
+        // Fetch the game data
         fetch('games.json')
             .then(response => response.json())
             .then(data => renderSite(data))
@@ -115,7 +184,7 @@
             app.innerHTML = ''; 
 
             categories.forEach(cat => {
-                // LOGIC: If active is explicitly false, skip this category
+                // Skip inactive categories
                 if (cat.active === false) return;
 
                 const section = document.createElement('section');
@@ -133,12 +202,14 @@
                     const card = document.createElement('div');
                     card.className = 'card';
 
-                    // 1. Image Thumbnail (Only if image is provided in JSON)
+                    // 1. Image Thumbnail
                     if (game.image) {
                         const img = document.createElement('img');
                         img.src = game.image;
                         img.className = 'game-thumb';
-                        img.alt = game.title + ' screenshot';
+                        img.alt = game.title;
+                        // Hide image if it fails to load
+                        img.onerror = function() { this.style.display = 'none'; };
                         card.appendChild(img);
                     }
 
@@ -160,8 +231,8 @@
 
                     new QRCode(qrDiv, {
                         text: game.url,
-                        width: 100,  // Slightly smaller to fit with image
-                        height: 100,
+                        width: 120,
+                        height: 120,
                         colorDark : "#000000",
                         colorLight : "#ffffff",
                         correctLevel : QRCode.CorrectLevel.H
@@ -171,7 +242,7 @@
                     const link = document.createElement('a');
                     link.href = game.url;
                     link.className = 'btn';
-                    link.textContent = 'Play Game';
+                    link.innerHTML = 'PLAY &#9658;'; 
                     link.target = '_blank';
                     card.appendChild(link);
 
