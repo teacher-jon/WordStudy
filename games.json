@@ -26,6 +26,12 @@
         "url": "https://teacher-jon.github.io/ish-quest/",
         "description": "A new adventure.",
         "image": "images/ish-quest.png"
+      },
+      {
+        "title": "Wordquest",
+        "url": "https://teacher-jon.github.io/Wordquest/",
+        "description": "A new word building quest.",
+        "image": "images/wordquest.png"
       }
     ]
   },
