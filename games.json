@@ -56,9 +56,10 @@
         "url": "https://teacher-jon.github.io/monster-maker/",
         "description": "A placeholder for future games.",
         "image": ""
-      },
+      }
     ]
-    {
+  },
+  {
     "category": "Language & Vocabulary",
     "active": false,
     "items": [
@@ -68,5 +69,6 @@
         "description": "A placeholder for future games.",
         "image": ""
       }
+    ]
   }
 ]
