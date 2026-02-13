@@ -52,10 +52,10 @@
     "active": true,
     "items": [
       {
-        "title": "Word Builder",
+        "title": "Monster Maker",
         "url": "https://teacher-jon.github.io/monster-maker/",
-        "description": "A placeholder for future games.",
-        "image": ""
+        "description": "Build your monster",
+        "image": "images/monster.png"
       }
     ]
   },
